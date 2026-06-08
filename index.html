@@ -1,7 +1,38 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personal Page</title>
+  <style>
+    body {
+      max-width: 720px;
+      margin: 48px auto;
+      padding: 0 24px;
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      color: #222;
+    }
+
+    .profile-image {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .cv-link {
+      display: inline-block;
+      margin-top: 16px;
+      color: #0b57d0;
+      font-weight: 700;
+    }
+  </style>
+</head>
 <body>
+  <img class="profile-image" src="assets/profile.jpg" alt="Profile photo">
   <h1>Welcome to my Personal Page</h1>
   <p>Hosted on GitHub Pages!</p>
+  <a class="cv-link" href="assets/cv.pdf" target="_blank" rel="noopener">View CV</a>
 </body>
 </html>
