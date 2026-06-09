@@ -3,36 +3,802 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Personal Page</title>
+  <meta name="description" content="Min's personal website, portfolio, and CV.">
+  <title>Min | Personal Website</title>
   <style>
+    :root {
+      color-scheme: dark;
+      --canvas: #000000;
+      --surface-soft: #0d0d0d;
+      --surface-card: #1a1a1a;
+      --surface-elevated: #262626;
+      --hairline: #3c3c3c;
+      --on-dark: #ffffff;
+      --body: #bbbbbb;
+      --body-strong: #e6e6e6;
+      --muted: #7e7e7e;
+      --m-blue-light: #0066b1;
+      --m-blue-dark: #1c69d4;
+      --m-red: #e22718;
+      --max-width: 1440px;
+      --section: 96px;
+      --xxl: 64px;
+      --xl: 40px;
+      --lg: 24px;
+      --md: 16px;
+      --sm: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
-      max-width: 720px;
-      margin: 48px auto;
-      padding: 0 24px;
-      font-family: Arial, sans-serif;
-      line-height: 1.6;
-      color: #222;
+      margin: 0;
+      color: var(--on-dark);
+      background: var(--canvas);
+      font-family: "BMW Type Next Latin", Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-weight: 300;
+      line-height: 1.5;
     }
 
-    .profile-image {
-      width: 180px;
-      height: 180px;
-      border-radius: 50%;
-      object-fit: cover;
+    body.menu-open {
+      overflow: hidden;
     }
 
-    .cv-link {
-      display: inline-block;
-      margin-top: 16px;
-      color: #0b57d0;
+    img {
+      max-width: 100%;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      margin: -1px;
+      padding: 0;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    a:focus-visible,
+    button:focus-visible {
+      outline: 3px solid var(--on-dark);
+      outline-offset: 4px;
+    }
+
+    .skip-link {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      z-index: 20;
+      transform: translateY(-140%);
+      padding: 12px 16px;
+      border: 1px solid var(--on-dark);
+      color: var(--on-dark);
+      background: var(--canvas);
+      font-size: 0.875rem;
       font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      transition: transform 0.2s ease;
+    }
+
+    .skip-link:focus {
+      transform: translateY(0);
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      min-height: 64px;
+      border-bottom: 1px solid var(--hairline);
+      background: rgba(0, 0, 0, 0.94);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--lg);
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 var(--lg);
+      min-height: 64px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--on-dark);
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .brand-mark,
+    .m-stripe {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .brand-mark {
+      width: 54px;
+      height: 10px;
+    }
+
+    .m-stripe {
+      width: 100%;
+      height: 4px;
+    }
+
+    .brand-mark span:first-child,
+    .m-stripe span:first-child {
+      background: var(--m-blue-light);
+    }
+
+    .brand-mark span:nth-child(2),
+    .m-stripe span:nth-child(2) {
+      background: var(--m-blue-dark);
+    }
+
+    .brand-mark span:last-child,
+    .m-stripe span:last-child {
+      background: var(--m-red);
+    }
+
+    .menu-toggle {
+      display: none;
+      width: 48px;
+      height: 48px;
+      border: 1px solid var(--hairline);
+      border-radius: 50%;
+      color: var(--on-dark);
+      background: var(--surface-card);
+      cursor: pointer;
+    }
+
+    .menu-toggle-lines,
+    .menu-toggle-lines::before,
+    .menu-toggle-lines::after {
+      display: block;
+      width: 20px;
+      height: 2px;
+      margin: 0 auto;
+      background: currentColor;
+      content: "";
+    }
+
+    .menu-toggle-lines::before {
+      transform: translateY(-7px);
+    }
+
+    .menu-toggle-lines::after {
+      transform: translateY(5px);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: var(--lg);
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--body);
+      font-size: 0.875rem;
+      font-weight: 400;
+      letter-spacing: 0.5px;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .nav-links a:hover {
+      color: var(--on-dark);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(360px, 0.95fr);
+      min-height: calc(100vh - 64px);
+      border-bottom: 1px solid var(--hairline);
+      background: var(--canvas);
+    }
+
+    .hero-copy {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: var(--xxl) clamp(24px, 6vw, 96px);
+    }
+
+    .hero-media {
+      position: relative;
+      min-height: 520px;
+      overflow: hidden;
+      border-left: 1px solid var(--hairline);
+      background: var(--surface-soft);
+    }
+
+    .hero-media img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      min-height: inherit;
+      object-fit: cover;
+      object-position: center top;
+    }
+
+    .profile-fallback {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: var(--lg);
+      color: var(--muted);
+      background: var(--surface-card);
+      font-size: 0.875rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .hero-media img[src] + .profile-fallback {
+      display: none;
+    }
+
+    .photo-caption {
+      position: absolute;
+      right: var(--lg);
+      bottom: var(--lg);
+      left: var(--lg);
+      margin: 0;
+      color: var(--body);
+      font-size: 0.75rem;
+      font-weight: 400;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .kicker,
+    .label,
+    .text-link,
+    .button {
+      font-size: 0.875rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    .kicker {
+      margin: 0 0 var(--md);
+      color: var(--body);
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin-top: 0;
+    }
+
+    h1,
+    h2,
+    h3 {
+      color: var(--on-dark);
+      font-weight: 700;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 820px;
+      margin-bottom: var(--lg);
+      font-size: clamp(3.25rem, 8.2vw, 5rem);
+      line-height: 1;
+    }
+
+    h2 {
+      margin-bottom: var(--lg);
+      font-size: clamp(2.4rem, 6vw, 3.5rem);
+      line-height: 1.05;
+    }
+
+    h3 {
+      margin-bottom: var(--sm);
+      font-size: clamp(1.35rem, 3vw, 1.5rem);
+      line-height: 1.3;
+    }
+
+    p {
+      color: var(--body);
+    }
+
+    .lead {
+      max-width: 680px;
+      margin-bottom: var(--xl);
+      color: var(--body-strong);
+      font-size: 1.25rem;
+      font-weight: 300;
+      line-height: 1.4;
+    }
+
+    .hero-actions,
+    .section-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--sm);
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 160px;
+      min-height: 48px;
+      padding: 16px 32px;
+      border: 1px solid var(--on-dark);
+      border-radius: 0;
+      color: var(--on-dark);
+      background: transparent;
+      text-decoration: none;
+    }
+
+    .button:hover {
+      color: var(--canvas);
+      background: var(--on-dark);
+    }
+
+    .section {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: var(--section) var(--lg);
+      border-bottom: 1px solid var(--hairline);
+    }
+
+    .section-header {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(280px, 0.55fr);
+      gap: var(--xl);
+      align-items: end;
+      margin-bottom: var(--xl);
+    }
+
+    .section-header p {
+      margin-bottom: 0;
+      color: var(--body);
+      font-size: 1rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--lg);
+    }
+
+    .card {
+      min-height: 100%;
+      padding: var(--lg);
+      border: 1px solid var(--hairline);
+      border-radius: 0;
+      background: var(--surface-card);
+    }
+
+    .card p {
+      margin-bottom: 0;
+    }
+
+    .spec-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1px;
+      background: var(--hairline);
+      border: 1px solid var(--hairline);
+    }
+
+    .spec-cell {
+      min-height: 156px;
+      padding: var(--lg);
+      background: var(--surface-soft);
+    }
+
+    .spec-value {
+      display: block;
+      margin-bottom: var(--sm);
+      color: var(--on-dark);
+      font-size: clamp(1.75rem, 4vw, 2rem);
+      font-weight: 700;
+      line-height: 1.15;
+      text-transform: uppercase;
+    }
+
+    .spec-label {
+      display: block;
+      color: var(--body);
+    }
+
+    .resume-band {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: var(--xl);
+      align-items: center;
+      padding: var(--xl);
+      border: 1px solid var(--hairline);
+      background: var(--surface-card);
+    }
+
+    .resume-band p {
+      max-width: 720px;
+      margin-bottom: 0;
+    }
+
+    .text-link {
+      display: inline-flex;
+      align-items: center;
+      min-height: 48px;
+      color: var(--on-dark);
+      text-decoration: none;
+    }
+
+    .text-link::after {
+      margin-left: 10px;
+      content: ">";
+    }
+
+    .contact-list {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--lg);
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .contact-list a {
+      display: flex;
+      min-height: 64px;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--hairline);
+      color: var(--on-dark);
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .contact-list a::after {
+      color: var(--body);
+      content: ">";
+    }
+
+    .site-footer {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: var(--xxl) var(--lg);
+      color: var(--muted);
+      font-size: 0.875rem;
+    }
+
+    .site-footer p {
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: 0.75rem;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 1024px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-media {
+        min-height: 560px;
+        border-top: 1px solid var(--hairline);
+        border-left: 0;
+      }
+
+      .grid,
+      .contact-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .spec-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 767px) {
+      :root {
+        --section: 72px;
+        --xxl: 48px;
+        --xl: 32px;
+      }
+
+      .menu-toggle {
+        display: inline-grid;
+        place-items: center;
+      }
+
+      .nav-links {
+        position: fixed;
+        inset: 64px 0 0;
+        display: none;
+        grid-auto-rows: min-content;
+        align-content: start;
+        gap: 0;
+        padding: var(--xl) var(--lg);
+        background: var(--canvas);
+      }
+
+      .nav-links::before {
+        display: block;
+        width: 100%;
+        height: 4px;
+        margin-bottom: var(--xl);
+        background:
+          linear-gradient(
+            90deg,
+            var(--m-blue-light) 0 33.333%,
+            var(--m-blue-dark) 33.333% 66.666%,
+            var(--m-red) 66.666% 100%
+          );
+        content: "";
+      }
+
+      .nav-links.is-open {
+        display: grid;
+      }
+
+      .nav-links li {
+        border-bottom: 1px solid var(--hairline);
+      }
+
+      .nav-links a {
+        display: flex;
+        min-height: 64px;
+        align-items: center;
+        font-size: 1.25rem;
+        font-weight: 700;
+      }
+
+      .hero-copy {
+        padding: var(--xxl) var(--lg);
+      }
+
+      .hero-media {
+        min-height: 460px;
+      }
+
+      .section-header,
+      .resume-band {
+        grid-template-columns: 1fr;
+      }
+
+      .grid,
+      .spec-grid,
+      .contact-list {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      .skip-link {
+        transition: none;
+      }
     }
   </style>
 </head>
 <body>
-  <img class="profile-image" src="assets/profile.jpg" alt="Profile photo">
-  <h1>Welcome to my Personal Page</h1>
-  <p>Hosted on GitHub Pages!</p>
-  <a class="cv-link" href="assets/cv.pdf" target="_blank" rel="noopener">View CV</a>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="site-header">
+    <nav class="nav" aria-label="Primary navigation">
+      <a class="brand" href="#">
+        <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
+        <span>Min</span>
+      </a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-menu">
+        <span class="menu-toggle-lines" aria-hidden="true"></span>
+        <span class="sr-only">Menu</span>
+      </button>
+      <ul class="nav-links" id="primary-menu">
+        <li><a href="#about">About</a></li>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#resume">CV</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero" aria-labelledby="intro-title">
+      <div class="hero-copy">
+        <p class="kicker">Personal website</p>
+        <h1 id="intro-title">Built with precision. Shipped on GitHub Pages.</h1>
+        <p class="lead">
+          I am Min, and this site collects my projects, technical interests,
+          professional background, and CV in one fast static page.
+        </p>
+        <div class="hero-actions">
+          <a class="button" href="#work">View work</a>
+          <a class="button" href="assets/cv.pdf" target="_blank" rel="noopener">Open CV</a>
+        </div>
+      </div>
+
+      <figure class="hero-media">
+        <img
+          id="profile-image"
+          src="assets/profile.jpg"
+          alt="Portrait of Min"
+          width="520"
+          height="650"
+        >
+        <div class="profile-fallback" aria-hidden="true">Add assets/profile.jpg or assets/profile.png</div>
+        <figcaption class="photo-caption">Profile image: assets/profile.jpg or assets/profile.png</figcaption>
+      </figure>
+    </section>
+
+    <div class="m-stripe" aria-hidden="true"><span></span><span></span><span></span></div>
+
+    <section class="section" id="about" aria-labelledby="about-title">
+      <div class="section-header">
+        <div>
+          <p class="kicker">About</p>
+          <h2 id="about-title">A concise digital profile.</h2>
+        </div>
+        <p>
+          Replace this text with a short introduction: what you study, build,
+          research, or care about. Keep the tone direct and specific.
+        </p>
+      </div>
+
+      <div class="spec-grid" aria-label="Site highlights">
+        <div class="spec-cell">
+          <span class="spec-value">Static</span>
+          <span class="spec-label label">GitHub Pages ready</span>
+        </div>
+        <div class="spec-cell">
+          <span class="spec-value">Fast</span>
+          <span class="spec-label label">No backend required</span>
+        </div>
+        <div class="spec-cell">
+          <span class="spec-value">Sharp</span>
+          <span class="spec-label label">Dark editorial theme</span>
+        </div>
+        <div class="spec-cell">
+          <span class="spec-value">Open</span>
+          <span class="spec-label label">CV linked as PDF</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="work" aria-labelledby="work-title">
+      <div class="section-header">
+        <div>
+          <p class="kicker">Work</p>
+          <h2 id="work-title">Selected projects.</h2>
+        </div>
+        <p>
+          Use these cards for repositories, research, coursework, publications,
+          or portfolio pieces. Each card is intentionally brief.
+        </p>
+      </div>
+
+      <div class="grid">
+        <article class="card">
+          <p class="label">Project 01</p>
+          <h3>Project title</h3>
+          <p>Add a focused description of what you built, what problem it solves, and what tools you used.</p>
+        </article>
+        <article class="card">
+          <p class="label">Project 02</p>
+          <h3>Research or build</h3>
+          <p>Describe a second item that shows your technical range, collaboration, or learning direction.</p>
+        </article>
+        <article class="card">
+          <p class="label">Project 03</p>
+          <h3>Portfolio item</h3>
+          <p>Highlight a result, artifact, publication, or GitHub repository that visitors should notice.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="resume" aria-labelledby="resume-title">
+      <div class="section-header">
+        <div>
+          <p class="kicker">CV / Resume</p>
+          <h2 id="resume-title">Current background, one click away.</h2>
+        </div>
+      </div>
+
+      <div class="resume-band">
+        <p>
+          The CV link points to <strong>assets/cv.pdf</strong>. It will open the uploaded PDF on GitHub Pages and can be replaced without changing the HTML.
+        </p>
+        <a class="button" href="assets/cv.pdf" target="_blank" rel="noopener">Open CV</a>
+      </div>
+    </section>
+
+    <section class="section" id="contact" aria-labelledby="contact-title">
+      <div class="section-header">
+        <div>
+          <p class="kicker">Contact</p>
+          <h2 id="contact-title">Connect.</h2>
+        </div>
+        <p>
+          Update the email and social links below with your preferred contact points.
+        </p>
+      </div>
+
+      <ul class="contact-list">
+        <li><a href="mailto:your.email@example.com">Email</a></li>
+        <li><a href="https://github.com/Min8230">GitHub</a></li>
+        <li><a href="https://www.linkedin.com/">LinkedIn</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; <span id="year"></span> Min. Static personal website hosted on GitHub Pages.</p>
+  </footer>
+
+  <script>
+    const menuToggle = document.querySelector(".menu-toggle");
+    const navLinks = document.querySelector(".nav-links");
+    const profileImage = document.getElementById("profile-image");
+    const imageFallbacks = ["assets/profile.png"];
+
+    menuToggle.addEventListener("click", () => {
+      const isOpen = menuToggle.getAttribute("aria-expanded") === "true";
+      menuToggle.setAttribute("aria-expanded", String(!isOpen));
+      navLinks.classList.toggle("is-open", !isOpen);
+      document.body.classList.toggle("menu-open", !isOpen);
+    });
+
+    navLinks.addEventListener("click", (event) => {
+      if (event.target.closest("a")) {
+        menuToggle.setAttribute("aria-expanded", "false");
+        navLinks.classList.remove("is-open");
+        document.body.classList.remove("menu-open");
+      }
+    });
+
+    profileImage.addEventListener("error", () => {
+      const nextImage = imageFallbacks.shift();
+
+      if (nextImage) {
+        profileImage.src = nextImage;
+        return;
+      }
+
+      profileImage.removeAttribute("src");
+      profileImage.alt = "";
+    });
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
