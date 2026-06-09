@@ -451,6 +451,10 @@
       margin-bottom: 0;
     }
 
+    .resume-summary {
+      margin-top: var(--lg);
+    }
+
     .text-link {
       display: inline-flex;
       align-items: center;
@@ -655,6 +659,7 @@
         <li><a href="#work">Work</a></li>
         <li><a href="#courses">Courses</a></li>
         <li><a href="#resume">CV</a></li>
+        <li><a href="#ai-usage">AI Usage</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
     </nav>
@@ -823,6 +828,55 @@
           The CV link points to <strong>assets/cv.pdf</strong>. It will open or download the uploaded PDF on GitHub Pages and can be replaced without changing the HTML.
         </p>
         <a class="button" href="assets/cv.pdf" download>Download CV</a>
+      </div>
+
+      <div class="grid resume-summary" aria-label="Brief resume summary">
+        <article class="card">
+          <p class="label">Education</p>
+          <h3>Seoul National University</h3>
+          <p>Academic background connected to Mechanical Engineering and Computer Science interests.</p>
+        </article>
+        <article class="card">
+          <p class="label">Skills</p>
+          <h3>C++, Python, Web</h3>
+          <p>C++, Python, Web Development, GitHub Pages, and AI tools.</p>
+        </article>
+        <article class="card">
+          <p class="label">Experience</p>
+          <h3>Projects and iteration</h3>
+          <p>OOP Course Project, GitHub Pages Website, and Codex Website Iteration.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="ai-usage" aria-labelledby="ai-usage-title">
+      <div class="section-header">
+        <div>
+          <p class="kicker">AI Usage</p>
+          <h2 id="ai-usage-title">How this site was improved.</h2>
+        </div>
+        <p>
+          I used Codex to generate, edit, and improve this static personal
+          website while keeping it compatible with GitHub Pages.
+        </p>
+      </div>
+
+      <div class="grid" aria-label="AI usage details">
+        <article class="card">
+          <p class="label">Tool</p>
+          <h3>Codex</h3>
+          <p>Codex helped update the structure, content, styling, and responsive behavior of this page.</p>
+        </article>
+        <article class="card">
+          <p class="label">Prompt</p>
+          <h3>Design update</h3>
+          <p>Read DESIGN.md and update index.html so that my personal website follows this design theme.</p>
+        </article>
+        <article class="card">
+          <p class="label">Result</p>
+          <h3>Generated and improved</h3>
+          <p>I used Codex to turn my requirements into a polished personal website and refine it through iteration.</p>
+        </article>
       </div>
     </section>
 
